@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-rqn26AG5Pj86AF4SO72RK5fyefcQ/x32DNQfChxWvbXIyXFePlEktwD18fEz+kQU"
+      crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/cd768d2af5.js" crossorigin="anonymous"></script>
+<style>
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: -10px;
+        left: 25px;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent black transparent transparent;
+    }
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    .tooltip_icon {
+        position: relative;
+        top: -0.5em;
+        font-size: 80%;
+    }
+</style>
+<body style="text-align:center;">
+
+<h2>Right Tooltip w/ Left Arrow</h2>
+Dotdigital Region
+    <div class="help-tooltip">
+        <i class="fa-regular fa-message-question tooltip_icon"></i>
+        <span class="tooltiptext">Tooltip text </span>
+    </div>
+
+</body>
+</html>
+
+

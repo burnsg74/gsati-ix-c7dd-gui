@@ -1,0 +1,48 @@
+.navbar-nav > .active > a {
+    background-color: rgb(216, 236, 248);
+}
+
+table tr td.active {
+    background-color: rgb(216, 236, 248);
+}
+
+table.uploadDetailTable tr th {
+    text-align: right;
+}
+
+table.uploadDetailTable tr td {
+    padding-left: 10px;
+    padding-right: 100px;
+}
+
+.help-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.help-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 900px;
+    background-color: rgb(216, 236, 248);
+    border: 1px solid rgba(0,0,0,.3);
+    border-radius: 10px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    left: 20px;
+}
+
+.help-tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+
+.tooltip-text p {
+    margin: 0;
+}
+
+.tooltip_icon {
+    position: relative;
+    top: -1em;
+    font-size: 80%;
+}

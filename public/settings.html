@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content="GSATi Dotdigital Integration"/>
+  <meta name="author" content="GSATi"/>
+  <title>GSATi Dotdigital Integration</title>
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-rqn26AG5Pj86AF4SO72RK5fyefcQ/x32DNQfChxWvbXIyXFePlEktwD18fEz+kQU"
+        crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <script src="https://kit.fontawesome.com/cd768d2af5.js" crossorigin="anonymous"></script>
+    <style>
+      .list-group-item-light.list-group-item-action.active {
+          color: black;
+          background-color: rgb(216, 236, 248);
+      }
+  </style>
+</head>
+<body>
+<div class="d-flex" id="wrapper"><!-- Side Nav -->
+<div class="border-end bg-white" id="sidebar-wrapper">
+  <div class="list-group list-group-flush">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"  href="index.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+        <path
+          d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+      </svg>
+      Dashboard</a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="field-mapping.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
+      </svg>
+      Field Mapping</a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-customers.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+      </svg>
+      Upload <b>Customers</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-products.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+        <path
+          d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+      </svg>
+      Upload <b>Products</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-orders.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+        <path
+          d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+      </svg>
+      Upload <b>Orders</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="settings.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+        <path
+          d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+      </svg>
+      Settings</a>
+  </div>
+</div><!-- Page content-->
+<div class="container-fluid py-2">
+    <div id="invalidDotdigitalCreds" class="alert alert-danger" role="alert" style="display: none">
+    <i class="fad fa-exclamation-triangle"></i>
+    Warning: Dotdigital credentials are not valid. Please update <a href="/settings.html">Settings</a>
+</div>    <div class="px-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid">
+            <div id="savedAlert" class="alert alert-success d-none" role="alert">
+                Settings saved successfully.
+            </div>
+            <h2 class="fw-bold mt-5" style="display: inline-flex">Settings </h2>
+            <div class="help-tooltip">
+                <a href="https://support.dotdigital.com/hc/en-gb/articles/115001718730-Create-an-API-user" target="_blank"><i class="fa-regular fa-message-question tooltip_icon"></i></a>
+                <div class="tooltip-text">
+                    <p>Create a new API user in the Dotdigital admin interface → three dots in lower left → Access (Menu) → API users (tab).</p>
+                    <p>Click New User. Record the email address and set a complex password, recommended to be over 24 characters long.</p>
+                    <p><br>Click Help Icon, for more information.</p>
+                </div>
+            </div>
+            <p class="col-md-8">Change your Settings.
+            </p>
+            <section id="loadingAlert">
+                <div class="row">
+                    <div class="row" style="height: 50px">
+                        <div class="col-sm">
+                            <h3>Loading... <i class="spinner-border text-primary" role="status"></i></h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="pageContent" style="display: none">
+                <div class="row">
+                    <div class="row" style="height: 50px">
+                        <div class="col-sm">
+                            <h3>Dotdigital</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="ddRegion" class="form-label">Dotdigital Region</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>At the top of the screen there is a display for "Your API endpoint is"</p>
+                            <p>Choose the correct region from the beginning of the URL displayed.</p>
+                        </div>
+                    </div>
+                    <select id="ddRegion" name="dd_region" class="form-select" aria-label="Select Dotdigital Region">
+                        <option selected>Select Region</option>
+                        <option value="r1">r1</option>
+                        <option value="r2">r2</option>
+                        <option value="r3">r3</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="ddUser" class="form-label">Dotdigital Username</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Enter the email address generated during the Dotdigital API user setup process.</p>
+                        </div>
+                    </div>
+                    <input id="ddUser" name="dd_user" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="ddPass" class="form-label">Dotdigital Password</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Enter the password that was specified during the Dotdigital API user setup process.</p>
+                        </div>
+                    </div>
+                    <input id="ddPass" name="dd_pass" type="password" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="ddOptinType" class="form-label">Opt-in Type</label>
+                    <div class="help-tooltip">
+                        <a href="https://support.dotdigital.com/hc/en-gb/articles/212212098-Contact-opt-in-types" target="_blank"><i class="fa-regular fa-message-question tooltip_icon"></i></a>
+                        <div class="tooltip-text">
+                            <p>Choose Single to not require new subscribers to confirm their email address, <br>
+                                Double if your subscribers are verified as correct emails in another system, <br>
+                                or Verified Double for Dotdigital to send a email confirmation before they are subscribed (Recommended Setting).<br>
+                                <br>Click Help Icon, for more information.</p>
+                        </div>
+                    </div>
+                    <select id="ddOptinType" class="form-select" aria-label="Select Dotdigital Opt-in Type">
+                        <option selected>Select Opt-in Type</option>
+                        <option value="Single">Single</option>
+                        <option value="Double">Double</option>
+                        <option value="VerifiedDouble">VerifiedDouble</option>
+                    </select>
+                </div>
+                <div class="mb-3 form-check">
+                    <input id="ddSubscription" type="checkbox" value="true" class="form-check-input">
+                    <label for="ddSubscription" class="form-check-label">Sync Commerce7 Email Marketing Subscription Status</label>
+                    <div class="help-tooltip">
+                        <a href="https://documentation.commerce7.com/is-there-a-way-to-have-customer-automatically-subscribe" target="_blank"><i class="fa-regular fa-message-question tooltip_icon"></i></a>
+                        <div class="tooltip-text">
+                            <p>Sync email marketing status of Subscribed or Unsubscribed with Dotdigital.<br>
+                            <br>Click Help Icon, for more information.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input id="ddAddressBook" type="checkbox" value="true" class="form-check-input">
+                    <label for="ddAddressBook" class="form-check-label">Sync Club Memberships to Address Books</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Sync Commerce7 clubs to Dotdigital Address Books so that you can target individual club members.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input id="ddSyncOrders" type="checkbox" value="true" class="form-check-input">
+                    <label for="ddSyncOrders" class="form-check-label">Sync Orders</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Sync Commerce7 orders to Dotdigital for Contact reporting, Product Recommendations, Automation Programs, and Ecommerce reporting.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input id="ddSyncProducts" type="checkbox" value="true" class="form-check-input">
+                    <label for="ddSyncProducts" class="form-check-label">Sync Products</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Sync Commerce7 products to Dotdigital for Product Recommendations and embedding Products into email campaigns.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="height: 50px">
+                        <div class="col-sm">
+                            <h3 style="display: inline-flex">Web Behavior Tracking</h3>
+                            <div class="help-tooltip">
+                                <i class="fa-regular fa-message-question tooltip_icon"></i>
+                                <div class="tooltip-text">
+                                    <p>Setup Web behavior tracking in dotdigital admin interface<br>
+                                        Click the three dots in lower left → Access (Menu) → Web Behavior Profiles (Tab) → New Profile (Button). <br>
+                                        Enter your front end website domain(s) for tracking</p>
+                                    <ul>
+                                        <li>Status: <strong>Enabled</strong></li>
+                                        <li>Track Abandoned Carts: <strong>Enabled</strong></li>
+                                        <li>Enable guest carts: <strong>Disabled</strong></li>
+                                        <li>Record Unique ID starting with “<strong>DM-</strong>”</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            Add the below JS code to your website to track customer behavior.
+                            <div class="font-weight-bold border p-2 mb-3">
+                                &lt;script src="//d273z4tpgt77hu.cloudfront.net/gsati-dotdigital.js"&gt;&lt;/script&gt;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="ddWbId" class="form-label">Unique ID</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Enter the Unique ID setup under the Web behavior profiles in Dotdigital. <br>
+                                Should be <strong>DM-XXXXXXXXX-XX.</strong></p>
+                        </div>
+                    </div>
+                    <input id="ddWbId" name="dd_wb_id" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="ddWbProgramId" class="form-label">Abandoned Cart Automation Program ID</label>
+                    <div class="help-tooltip">
+                        <a href="https://support.dotdigital.com/hc/en-gb/articles/6297022547730-Create-an-abandoned-cart-program" target="_blank"><i class="fa-regular fa-message-question tooltip_icon"></i></a>
+                        <div class="tooltip-text">
+                            <p>Create a new Automation Program in Dotdigital with the Abandoned Cart template.<br>
+                                Enter the ID number of the automation program here.</p>
+                        </div>
+                    </div>
+                    <input id="ddWbProgramId" name="dd_wb_program_id" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="ddWbCartDelay" class="form-label">Abandoned Cart Program Delay</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Enter the delay in minutes before a cart is considered abandoned.<br>
+                                After this time the contact will enter the Abandoned cart program in Dotdigital and begin the automation of sending email. <br>
+                                If the customer visits the site within the delay the timer will reset.
+                                <br>Recommended minimum of 1 hour.</p>
+                        </div>
+                    </div>
+                    <input id="ddWbCartDelay" name="dd_wb_cart_delay" class="form-control">
+                </div>
+                <button class="btn btn-primary" onclick="submitForm(); return false;">Submit</button>
+            </section>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="/js/app.js"></script><script>
+    loadSettings()
+
+    /**
+     * Load Settings
+     */
+    function loadSettings() {
+        console.log('loadSettings')
+        axios.post(getSettingsURL, {tenantId, token}).then(function (response) {
+            document.getElementById('ddRegion').value = response.data['dotdigital_region']
+            document.getElementById('ddUser').value = response.data['dotdigital_username']
+            document.getElementById('ddPass').value = 'passwordNotUpdated'
+            document.getElementById('ddOptinType').value = response.data['dotdigital_optin_type']
+            document.getElementById('ddSubscription').checked = response.data['sync_customer_email_subscription']
+            document.getElementById('ddAddressBook').checked = response.data['sync_club_membership_to_dotdigital_address_book']
+            document.getElementById('ddSyncOrders').checked = response.data['sync_orders']
+            document.getElementById('ddSyncProducts').checked = response.data['sync_products']
+            document.getElementById('ddWbId').value = response.data['dd_wb_id']
+            document.getElementById('ddWbProgramId').value = response.data['dd_wb_program_id']
+            document.getElementById('ddWbCartDelay').value = response.data['dd_wb_cart_delay']
+
+            document.getElementById('loadingAlert').style.display = 'none'
+            document.getElementById('pageContent').style.display = null
+        }).catch(function (error) {
+            // console.log(error)
+            window.location.replace('401.html')
+        })
+
+        axios.post('https://lzu24fnncb.execute-api.us-west-2.amazonaws.com', {tenantId, token}).then(function (response) {
+            console.log('Queue Status', response.data)
+            console.log(response)
+        }).catch(function (error) {
+            console.log(error)
+            // window.location.replace('401.html')
+        })
+    }
+
+    /**
+     * Save Settings
+     */
+    function submitForm() {
+        let data = {
+            tenantId: tenantId,
+            token: token,
+            'dotdigital-region': document.getElementById('ddRegion').value,
+            'dotdigital-username': document.getElementById('ddUser').value,
+            'dotdigital-password': document.getElementById('ddPass').value,
+            'dotdigital-opt-in-type': document.getElementById('ddOptinType').value,
+            'sync-club-membership-to-dotdigital-address-book': document.getElementById('ddAddressBook').checked,
+            'sync-customer-email-subscription': document.getElementById('ddSubscription').checked,
+            'sync-orders': document.getElementById('ddSyncOrders').checked,
+            'sync-products': document.getElementById('ddSyncProducts').checked,
+            'dd_wb_id': document.getElementById('ddWbId').value,
+            'dd_wb_program_id': document.getElementById('ddWbProgramId').value,
+            'dd_wb_cart_delay': document.getElementById('ddWbCartDelay').value
+        }
+
+        axios.post(putSettingsURL, data).then(function (response) {
+            document.getElementById('savedAlert').classList.remove('d-none')
+            const invalidDotdigitalCreds = document.getElementById('invalidDotdigitalCreds')
+            invalidDotdigitalCreds.style.display = 'none'
+        }).catch(function (error) {
+            const invalidDotdigitalCreds = document.getElementById('invalidDotdigitalCreds')
+            invalidDotdigitalCreds.style.display = 'block'
+        })
+    }
+
+</script>
+</div>
+</body>
+</html>

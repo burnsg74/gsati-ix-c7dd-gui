@@ -1,0 +1,64 @@
+<?php include(VIEW_PATH.'/partials/header.phtml'); ?>
+<?php include(VIEW_PATH.'/partials/side-nav.phtml'); ?>
+  <!-- Page content-->
+  <div class="container-fluid py-2">
+    <?php include(VIEW_PATH.'/partials/alert.phtml'); ?>
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="px-5 py-2 mb-4 bg-light rounded-3">
+          <div class="container-fluid">
+            <h2 class="fw-bold">Field Mapping</h2>
+            <p class="col-md-8">Match Commerce7 customer fields to Dotdigital contact fields.</p>
+            <a class="btn btn-primary btn-sm" type="button" href="field-mapping.html">Goto Field Mapping</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="px-5 mb-4 bg-light rounded-3">
+          <div class="container-fluid">
+            <h2 class="fw-bold">Upload <b>Customers</b></h2>
+            <p class="col-md-8">Upload existing <b>Customers</b> to Dotdigital contacts.</p>
+            <a class="btn btn-primary btn-sm" type="button" href="upload-customers.html">Upload Customers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="px-5 mb-4 bg-light rounded-3">
+          <div class="container-fluid">
+            <h2 class="fw-bold">Upload <b>Products</b></h2>
+            <p class="col-md-8">Upload existing <b>Products</b> to Dotdigital contacts.</p>
+            <a class="btn btn-primary btn-sm" type="button" href="upload-products.html">Upload Products</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="px-5 mb-4 bg-light rounded-3">
+          <div class="container-fluid">
+            <h2 class="fw-bold">Upload <b>Orders</b></h2>
+            <p class="col-md-8">Upload existing <b>Orders</b> to Dotdigital contacts.</p>
+            <a class="btn btn-primary btn-sm" type="button" href="upload-orders.html">Upload Orders</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="px-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid">
+        <h2 class="fw-bold">Settings</h2>
+        <p class="col-md-8">Change your Settings.</p>
+        <a class="btn btn-primary btn-sm" type="button" href="settings.html">Goto Settings</a>
+      </div>
+    </div>
+  </div>
+<?php include(VIEW_PATH.'/partials/js-files.phtml'); ?>
+<script>
+    axios.post(getSettingsURL, {tenantId, token}).then(function (response) {
+        settings = response.data
+        sessionStorage.setItem('settings', JSON.stringify(settings))
+    }).catch(function (error) {
+        // console.log(error)
+        window.location.replace('401.html')
+    })
+</script>
+<?php include(VIEW_PATH.'/partials/footer.phtml'); ?>

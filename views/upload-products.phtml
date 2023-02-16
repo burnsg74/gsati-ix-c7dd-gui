@@ -1,0 +1,230 @@
+<?php include(VIEW_PATH . '/partials/header.phtml'); ?>
+<?php include(VIEW_PATH . '/partials/side-nav.phtml'); ?>
+<div class="container-fluid py-2">
+    <?php include(VIEW_PATH . '/partials/alert.phtml'); ?>
+    <div class="px-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid">
+            <h2 class="fw-bold">Upload <b>Products</b></h2>
+            <p>Upload existing <b>Products</b> to Dotdigital contacts.</p>
+            <p>Note: Uploading is a background process and might take several minutes to complete.</p>
+            <button id="uploadButton" class="btn btn-primary" onclick="startUpload(); return false;">
+                <i class="fa-duotone fa-spinner fa-spin"></i> Checking Queue...
+            </button>
+            <div id="statusBox" class="card" style="display: none">
+                <div class="card-body">
+                    <h5 id="step1" class="text-black-50"><i class="fa-regular fa-square"></i> Step 1: Pulling Products From Commerce7 <span id="c7ProgressText"></span></h5>
+                    <h5 id="step2" class="text-black-50"><i class="fa-regular fa-square"></i> Step 2: Mapping Products</h5>
+                    <h5 id="step3" class="text-black-50"><i class="fa-regular fa-square"></i> Step 3: Syncing with Dotdigital</h5>
+                </div>
+            </div>
+            <div id="uploadOderHistory" class="table-responsive mt-5" style="display: none">
+                <table id="uploadOderHistoryTable" class="table table table-striped">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date/Time</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Imported</th>
+                        <th scope="col">Rejected</th>
+                        <th scope="col">Errors</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<?php include(VIEW_PATH . '/partials/js-files.phtml'); ?>
+<script>
+    let actionBtn = document.getElementById('uploadButton')
+    let statusBox = document.getElementById('statusBox')
+    let c7ProgressText = document.getElementById('c7ProgressText')
+    let step1 = document.getElementById('step1')
+    let step2 = document.getElementById('step2')
+    let step3 = document.getElementById('step3')
+    let uploadOderHistory = document.getElementById('uploadOderHistory')
+    let uploadOderHistoryTable = document.getElementById('uploadOderHistoryTable')
+    let updateInterval = null
+    let newRequestInterval = null
+
+    console.log('Upload Products Page')
+    if (sessionStorage.hasOwnProperty('settings')) {
+        settings = JSON.parse(sessionStorage.getItem('settings'))
+    }
+
+    if (settings) {
+        console.log('Settings found')
+        updatePageWithSettings()
+    } else {
+        console.log('Settings not found, Get Settings')
+        let interval = setInterval(function () {
+            if (!settings) {
+                return
+            }
+            clearInterval(interval)
+            console.log('Settings found', settings)
+            updatePageWithSettings()
+        }, 500);
+    }
+
+    function updatePageWithSettings() {
+        console.log('Update Page With Settings')
+        if (!settings.c7_dd_product_queues) {
+            console.log('No Queue')
+            clearInterval(updateInterval)
+            actionBtn.innerText = 'Start uploading to Dotdigital'
+            actionBtn.disabled = false
+            return;
+        }
+
+        buildHistoryTable()
+
+        let lastQueuedItem = settings.c7_dd_product_queues[settings.c7_dd_product_queues.length - 1]
+        console.log('Last Queued Item', lastQueuedItem)
+        console.log('Last Queued Item Status: ', lastQueuedItem.status)
+        if (lastQueuedItem.status === 'processing') {
+            updateStatsBlock(lastQueuedItem);
+            getProductQueueStatus()
+        } else {
+            clearInterval(updateInterval)
+            console.log('Hide statusBox')
+            statusBox.style.display = "none"
+            actionBtn.innerText = 'Start uploading to Dotdigital'
+            actionBtn.disabled = false
+            actionBtn.hidden = false
+        }
+    }
+
+    function updateStatsBlock(lastQueuedItem) {
+        actionBtn.hidden = true
+        if (lastQueuedItem.c7Total > 0) {
+            c7ProgressText.innerText = ' :: ( ' + lastQueuedItem.c7Pulled.toLocaleString('en-US') + ' of ' + lastQueuedItem.c7Total.toLocaleString('en-US') + ' )'
+        }
+        console.log('Show statusBox')
+        statusBox.style.display = "block"
+        if (lastQueuedItem.step === 1) {
+            step1.className = 'text-primary'
+            step1.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        } else if (lastQueuedItem.step === 2) {
+            step1.className = 'text-success'
+            step1.firstChild.className = 'fa-regular fa-square-check'
+            step2.className = 'text-primary'
+            step2.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        } else if (lastQueuedItem.step === 3) {
+            step1.className = 'text-success'
+            step1.firstChild.className = 'fa-regular fa-square-check'
+            step2.className = 'text-success'
+            step2.firstChild.className = 'fa-regular fa-square-check'
+            step3.className = 'text-primary'
+            step3.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        }
+    }
+
+    function buildHistoryTable() {
+        if (!settings.c7_dd_product_queues) {
+            return;
+        }
+        console.log('Build History Table')
+        for (let i = uploadOderHistoryTable.rows.length - 1; i > 0; i--) {
+            uploadOderHistoryTable.deleteRow(i);
+        }
+
+        for (let i = 0; i < settings.c7_dd_product_queues.length; i++) {
+            let queueItem = settings.c7_dd_product_queues[i]
+            if (queueItem.status !== 'done') {
+                console.log('Queue Item Not Done, skip', queueItem)
+                continue;
+            }
+            let total = 0;
+            let imported = 0;
+            let rejected = 0;
+            let errors = [];
+            for (let ii = 0; ii < queueItem.dd_statuses.length; ii++) {
+                let ddStatus = queueItem.dd_statuses[ii]
+                total += ddStatus.totalItems
+                imported += ddStatus.totalImported
+                rejected += ddStatus.totalRejected
+                errors = [...errors, ...ddStatus.faults]
+            }
+
+            let row = uploadOderHistoryTable.insertRow()
+            let cell1 = row.insertCell(0)
+            let cell2 = row.insertCell(1)
+            let cell3 = row.insertCell(2)
+            let cell4 = row.insertCell(3)
+            let cell5 = row.insertCell(4)
+            let cell6 = row.insertCell(5)
+            let dtg = new Date(queueItem.dtg)
+            let dtgFormatted = dtg.toLocaleString('en-US')
+
+            cell1.innerHTML = i + 1
+            cell2.innerHTML = dtgFormatted
+            cell3.innerHTML = total
+            cell4.innerHTML = imported
+            cell5.innerHTML = rejected
+            cell6.innerHTML = ''
+            for (let ii = 0; ii < errors.length; ii++) {
+                cell6.innerHTML += errors[ii].reason + '<br>'
+            }
+        }
+        console.log('Show History')
+        uploadOderHistory.style.display = 'block'
+    }
+
+    function startUpload() {
+        console.log('Start Upload')
+        let actionBtn = document.getElementById('uploadButton')
+        actionBtn.disabled = true
+        actionBtn.innerText = 'Request Queued'
+        let currentQueueLength = 0
+
+        if (settings.c7_dd_product_queues) {
+            currentQueueLength = settings.c7_dd_product_queues.length
+        }
+        console.log('Current Queue Length', currentQueueLength)
+
+        axios.post(postProductLoadURL, {tenantId, token,queue:'c7_dd_product_queues'}).then(function (response) {
+            console.log('postProductLoadURL response', response)
+            clearInterval(newRequestInterval)
+            newRequestInterval = setInterval(function () {
+                console.log('Get Settings')
+                axios.post(getSettingsURL, {tenantId, token}).then(function (response) {
+                    console.log('Get Settings Response', response)
+                    settings = response.data
+                    sessionStorage.setItem('settings', JSON.stringify(settings))
+                    if (settings.c7_dd_product_queues && settings.c7_dd_product_queues.length > currentQueueLength) {
+                        console.log('New Request Found')
+                        clearInterval(newRequestInterval)
+                        updatePageWithSettings()
+                    } else {
+                        console.log('No New Request Found, keep trying...')
+                    }
+                }).catch(function (error) {
+                    // console.log(error)
+                    window.location.replace('401.html')
+                })
+            }, 1000);
+
+        }).catch(function (error) {
+            console.log('error', error)
+            window.location.replace('401.html')
+        })
+    }
+
+    function getProductQueueStatus() {
+        console.log('getQueueStatusURL')
+        clearInterval(updateInterval)
+        updateInterval = setInterval(function () {
+            axios.post(getQueueStatusURL, {tenantId, token, queue:'c7_dd_product_queues'}).then(function (response) {
+                console.log('getProductQueueStatusURL response', response)
+                settings = response.data
+                sessionStorage.setItem('settings', JSON.stringify(settings))
+                updatePageWithSettings()
+            }).catch(function (error) {
+                console.log(error)
+                // window.location.replace('401.html')
+            })
+        }, 5000);
+    }
+</script>
+<?php include(VIEW_PATH . '/partials/footer.phtml'); ?>

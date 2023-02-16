@@ -1,0 +1,397 @@
+<?php include(VIEW_PATH.'/partials/header.phtml'); ?>
+<?php include(VIEW_PATH.'/partials/side-nav.phtml'); ?>
+<!-- Page content-->
+<div class="container-fluid py-2">
+  <?php include(VIEW_PATH.'/partials/alert.phtml'); ?>
+  <div id="savedAlert" class="alert alert-success d-none" role="alert">
+    Field Mapping saved successfully.
+  </div>
+  <div class="px-5 mb-4 bg-light rounded-3">
+    <h2 class="fw-bold">Field Mapping</h2>
+    <p class="col-md-8">Match Commerce7 customer fields to Dotdigital contact fields.</p>
+
+    <section id="loadingAlert">
+      <div class="row">
+        <div class="row" style="height: 50px">
+          <div class="col-sm">
+            <h3>Loading... <i class="spinner-border text-primary" role="status"></i></h3>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="pageContent" style="display: none">
+      <div class="row">
+        <div class="row" style="height: 50px">
+          <div class="col-sm">
+            <h3>Commerce7 Customer</h3>
+          </div>
+          <div class="col-sm-1"> &nbsp;</div>
+          <div class="col-sm h-25">
+            <h3>Dotdigital Contact</h3>
+          </div>
+          <div class="col-sm-1"> &nbsp;</div>
+        </div>
+        <section id="mappingRows"></section>
+        <section>
+          <div class="row">
+            <div class="col-sm">
+              <select class="c7Field p-2" name="c7_field[]">
+                <option></option>
+              </select>
+            </div>
+            <div class="col-sm-1 text-center align-middle">
+              <svg height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  d="M504.3 273.6l-112.1 104c-6.992 6.484-17.18 8.218-25.94 4.406c-8.758-3.812-14.42-12.45-14.42-21.1L351.9 288H32C14.33 288 .0002 273.7 .0002 255.1S14.33 224 32 224h319.9l0-72c0-9.547 5.66-18.19 14.42-22c8.754-3.809 18.95-2.075 25.94 4.41l112.1 104C514.6 247.9 514.6 264.1 504.3 273.6z"/>
+              </svg>
+            </div>
+            <div class="col-sm">
+              <select class="ddField p-2" name="dd_field[]">
+                <option></option>
+              </select>
+            </div>
+            <div class="col-sm-1 align-top">
+            </div>
+          </div>
+          <button id="addButton" class="btn btn-success" onclick="addItem(); return false;" style="display:none">
+            Add Mapping
+          </button>
+        </section>
+      </div>
+      <hr class="mt-5">
+      <div class="text-start">
+        <button class="btn btn-primary" onclick="saveMapping(); return false;">Save Mapping</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Field Mapping Row Template : Not visible, used by js only -->
+<div id="mappingRowTemplate" class="row" style="display: none">
+  <div class="commerce7Field col-sm"></div>
+  <div class="col-sm-1 text-center">
+    <svg height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path
+        d="M504.3 273.6l-112.1 104c-6.992 6.484-17.18 8.218-25.94 4.406c-8.758-3.812-14.42-12.45-14.42-21.1L351.9 288H32C14.33 288 .0002 273.7 .0002 255.1S14.33 224 32 224h319.9l0-72c0-9.547 5.66-18.19 14.42-22c8.754-3.809 18.95-2.075 25.94 4.41l112.1 104C514.6 247.9 514.6 264.1 504.3 273.6z"/>
+    </svg>
+  </div>
+  <div class="dotdigitalField col-sm"></div>
+  <div class="col-sm-1 align-middle">
+    <div class="btn-group btn-group-sm" role="group" aria-label="Row Action Buttons">
+      <button onclick="editItem(this);" type="button" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil text-primary pr-3" viewBox="0 0 16 16">
+          <path
+            d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+      </button>
+      <button onclick="removeItem(this);" type="button" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash text-danger" viewBox="0 0 16 16">
+          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+          <path fill-rule="evenodd"
+                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<?php include(VIEW_PATH.'/partials/js-files.phtml'); ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  let editMode = false
+  let c7Select2 = null
+  let ddSelect2 = null
+  let c7Selected = null
+  let ddSelected = null
+  let mapping = []
+  let ddFields = []
+  let c7Fields = [
+    { id: 'id', text: 'id' },
+    { id: 'avatar', text: 'avatar' },
+    { id: 'honorific', text: 'honorific' },
+    { id: 'firstName', text: 'firstName' },
+    { id: 'lastName', text: 'lastName' },
+    { id: 'birthDate', text: 'birthDate' },
+    { id: 'city', text: 'city' },
+    { id: 'stateCode', text: 'stateCode' },
+    { id: 'zipCode', text: 'zipCode' },
+    { id: 'countryCode', text: 'countryCode' },
+    { id: 'emailMarketingStatus', text: 'emailMarketingStatus' },
+    { id: 'lastActivityDate', text: 'lastActivityDate' },
+    { id: 'metaData.ams-customer-since', text: 'metaData.ams-customer-since' },
+    { id: 'metaData.ams-customer-id', text: 'metaData.ams-customer-id' },
+    { id: 'appData', text: 'appData' },
+    { id: 'appSync', text: 'appSync' },
+    { id: 'createdAt', text: 'createdAt' },
+    { id: 'updatedAt', text: 'updatedAt' },
+    { id: 'orderInformation.currentWebCartId', text: 'orderInformation.currentWebCartId' },
+    { id: 'orderInformation.lastOrderId', text: 'orderInformation.lastOrderId' },
+    { id: 'orderInformation.lastOrderDate', text: 'orderInformation.lastOrderDate' },
+    { id: 'orderInformation.orderCount', text: 'orderInformation.orderCount' },
+    { id: 'orderInformation.lifetimeValue', text: 'orderInformation.lifetimeValue' },
+    { id: 'orderInformation.rank', text: 'orderInformation.rank' },
+    { id: 'orderInformation.rankTrend', text: 'orderInformation.rankTrend' },
+    { id: 'orderInformation.grossProfit', text: 'orderInformation.grossProfit' },
+    { id: 'orderInformation.acquisitionChannel', text: 'orderInformation.acquisitionChannel' },
+    { id: 'orderInformation.currentClubTitle', text: 'orderInformation.currentClubTitle' },
+    { id: 'orderInformation.daysInCurrentClub', text: 'orderInformation.daysInCurrentClub' },
+    { id: 'orderInformation.daysInClub', text: 'orderInformation.daysInClub' },
+    { id: 'hasAccount', text: 'hasAccount' },
+    { id: 'loginActivity.lastLoginAt', text: 'loginActivity.lastLoginAt' },
+    { id: 'loginActivity.loginIP', text: 'loginActivity.loginIP' },
+    { id: 'loginActivity.lastLogoutAt', text: 'loginActivity.lastLogoutAt' },
+  ]
+
+  /**
+   * Dom is Ready
+   */
+  $(document).ready(function () {
+    Promise.all([getDdDataFields(), getMappingData()]).then(() => {
+      sortC7Fields()
+      sortDdFields()
+      initC7Select2()
+      initDdSelect2()
+      addC7Select2Listener()
+      addDdSelect2Listener()
+
+      document.getElementById('loadingAlert').style.display = 'none'
+      document.getElementById('pageContent').style.display = null
+    })
+
+  })
+
+  /**
+   * Get Dd Data Fields
+   * Pull in dotdigital data fields via ajax
+   * @returns {Promise<any>}
+   */
+  function getDdDataFields () {
+    return axios.post(getDdDataFieldsURL, { tenantId, token }).then(function (response) {
+      response.data.forEach((item) => {
+        ddFields.push({ id: item.name, text: item.name })
+      })
+
+      initDdSelect2()
+    }).catch(function (error) {
+      console.log('ERROR',error)
+      window.location.replace('error.html')
+    })
+  }
+
+  /**
+   * Get Mapping Data
+   * @returns {Promise<any>}
+   */
+  function getMappingData () {
+    console.log('getMappingData Request: ',getMappingURL);
+    return axios.post(getMappingURL, { tenantId, token }).then((response) => {
+      console.log('getMappingData Response :',response)
+      if(response.data.length === 0) {
+        console.log('No saved mapping')
+        return;
+      }
+
+      console.log('Processing mapping data')
+      mapping = response.data
+      mapping.forEach((item) => {
+        c7Fields.splice(c7Fields.findIndex(o => o.id === item.c7Field), 1)
+        ddFields.splice(ddFields.findIndex(o => o.id === item.ddField), 1)
+      })
+
+      updateMappingRows()
+    }).catch(function (error) {
+      console.log('ERROR2',error)
+      // window.location.replace('401.html')
+    })
+  }
+
+  /**
+   * Sort Commerce7 Fields
+   */
+  function sortC7Fields () {
+    c7Fields.sort((a, b) => {
+      if (a.text > b.text) return 1
+      if (a.text < b.text) return -1
+      return 0
+    })
+  }
+
+  /**
+   * Sort Dotdigital Fields
+   */
+  function sortDdFields () {
+    ddFields.sort((a, b) => {
+      if (a.text > b.text) return 1
+      if (a.text < b.text) return -1
+      return 0
+    })
+  }
+
+  /**
+   * Init Commerce7 Select2
+   */
+  function initC7Select2 () {
+    c7Select2 = $('.c7Field').select2({
+      width: '100%',
+      placeholder: 'Select an Commerce7 Field',
+      data: c7Fields
+    })
+  }
+
+  /**
+   * Init Dotdigital Select2
+   */
+  function initDdSelect2 () {
+    console.log('initDdSelect2')
+    ddSelect2 = $('.ddField').select2({
+      width: '100%',
+      placeholder: 'Select an Dotdigital Field',
+      data: ddFields
+    })
+  }
+
+  /**
+   * Add Commerce7 Select2 Listener
+   */
+  function addC7Select2Listener () {
+    c7Select2.on('select2:select', function (e) {
+      c7Selected = e.params.data.id
+      toggleAddButton()
+    })
+  }
+
+  /**
+   * Add Dotdigital Select2 Listener
+   */
+  function addDdSelect2Listener () {
+    ddSelect2.on('select2:select', function (e) {
+      ddSelected = e.params.data.id
+      toggleAddButton()
+    })
+  }
+
+  /**
+   * Toggle: Add Button
+   */
+  function toggleAddButton () {
+    if (c7Selected && ddSelected) {
+      // $('#addButton').show()
+      addItem()
+    }
+  }
+
+  /**
+   * Update Mapping Rows
+   * Loop over mapping array
+   * Using the mapping row template,
+   * create existing mappings on screen
+   */
+  function updateMappingRows () {
+    console.log('updateMappingRows', mapping)
+    let newSection = document.createElement('section')
+    newSection.setAttribute('id', 'mappingRows')
+
+    mapping.forEach((item) => {
+      if(!item.c7Field) {
+        return;
+      }
+      
+      let newRow = document.querySelector('#mappingRowTemplate').cloneNode(true)
+
+      newRow.removeAttribute('id')
+      newRow.removeAttribute('style')
+      newRow.getElementsByTagName('div')[0].innerText = item.c7Field
+      newRow.getElementsByTagName('div')[2].innerText = item.ddField
+
+      newSection.append(newRow)
+    })
+
+    document.querySelector('#mappingRows').replaceWith(newSection)
+  }
+
+  /**
+   * Add Item
+   */
+  function addItem () {
+    editMode = false
+    mapping.push({ 'c7Field': c7Selected, 'ddField': ddSelected })
+    updateMappingRows()
+
+    c7Fields.splice(c7Fields.findIndex(o => o.id === c7Selected), 1)
+    ddFields.splice(ddFields.findIndex(o => o.id === ddSelected), 1)
+
+    c7Select2.empty()
+    initC7Select2()
+    c7Select2.val(null).trigger('change')
+
+    ddSelect2.empty()
+    initDdSelect2()
+    ddSelect2.val(null).trigger('change')
+
+    c7Selected = null
+    ddSelected = null
+    document.getElementById('addButton').style.display = 'none'
+  }
+
+  /**
+   * Edit Field Mapping Pair
+   * @param e
+   */
+  function editItem (e) {
+    if (editMode) { addItem() }
+    editMode = true
+
+    let row = $(e).closest('.row')
+    c7Selected = row.find('div')[0].innerText
+    ddSelected = row.find('div')[2].innerText
+
+    removeItem(e)
+
+    c7Select2.val(c7Selected).trigger('change')
+    ddSelect2.val(ddSelected).trigger('change')
+    document.getElementById('addButton').style.display = null
+  }
+
+  /**
+   * Remove Item
+   * @param e
+   */
+  function removeItem (e) {
+    let row = $(e).closest('.row')
+    let c7Field = row.find('div')[0].innerText
+    let ddField = row.find('div')[2].innerText
+
+    c7Fields.push({ id: c7Field, text: c7Field })
+    ddFields.push({ id: ddField, text: ddField })
+    sortC7Fields()
+    sortDdFields()
+
+    c7Select2.empty()
+    initC7Select2()
+    c7Select2.val(null).trigger('change')
+
+    ddSelect2.empty()
+    initDdSelect2()
+    ddSelect2.val(null).trigger('change')
+
+    mapping.splice(mapping.findIndex(o => o.c7Field === c7Field), 1)
+    updateMappingRows()
+  }
+
+  /**
+   * Save Mapping
+   */
+  function saveMapping () {
+    console.log('Save Mapping URL: ', putMappingURL)
+    axios.post(putMappingURL, { tenantId, token, mapping }).then((response) => {
+      console.log('Response: ', response)
+      document.getElementById('savedAlert').classList.remove('d-none')
+    }).catch(function (error) {
+      console.log(error)
+      // window.location.replace('error.html')
+    })
+  }
+</script>
+
+<?php include(VIEW_PATH.'/partials/footer.phtml'); ?>

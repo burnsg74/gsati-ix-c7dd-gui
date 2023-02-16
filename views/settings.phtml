@@ -1,0 +1,270 @@
+<?php include(VIEW_PATH . '/partials/header.phtml'); ?>
+<?php include(VIEW_PATH . '/partials/side-nav.phtml'); ?>
+<!-- Page content-->
+<div class="container-fluid py-2">
+    <?php include(VIEW_PATH . '/partials/alert.phtml'); ?>
+    <div class="px-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid">
+            <div id="savedAlert" class="alert alert-success d-none" role="alert">
+                Settings saved successfully.
+            </div>
+            <h2 class="fw-bold mt-5" style="display: inline-flex">Settings </h2>
+            <div class="help-tooltip">
+                <a href="https://support.dotdigital.com/hc/en-gb/articles/115001718730-Create-an-API-user" target="_blank"><i class="fa-regular fa-message-question tooltip_icon"></i></a>
+                <div class="tooltip-text">
+                    <p>Create a new API user in the Dotdigital admin interface → three dots in lower left → Access (Menu) → API users (tab).</p>
+                    <p>Click New User. Record the email address and set a complex password, recommended to be over 24 characters long.</p>
+                    <p><br>Click Help Icon, for more information.</p>
+                </div>
+            </div>
+            <p class="col-md-8">Change your Settings.
+            </p>
+            <section id="loadingAlert">
+                <div class="row">
+                    <div class="row" style="height: 50px">
+                        <div class="col-sm">
+                            <h3>Loading... <i class="spinner-border text-primary" role="status"></i></h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="pageContent" style="display: none">
+                <div class="row">
+                    <div class="row" style="height: 50px">
+                        <div class="col-sm">
+                            <h3>Dotdigital</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="ddRegion" class="form-label">Dotdigital Region</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>At the top of the screen there is a display for "Your API endpoint is"</p>
+                            <p>Choose the correct region from the beginning of the URL displayed.</p>
+                        </div>
+                    </div>
+                    <select id="ddRegion" name="dd_region" class="form-select" aria-label="Select Dotdigital Region">
+                        <option selected>Select Region</option>
+                        <option value="r1">r1</option>
+                        <option value="r2">r2</option>
+                        <option value="r3">r3</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="ddUser" class="form-label">Dotdigital Username</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Enter the email address generated during the Dotdigital API user setup process.</p>
+                        </div>
+                    </div>
+                    <input id="ddUser" name="dd_user" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="ddPass" class="form-label">Dotdigital Password</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Enter the password that was specified during the Dotdigital API user setup process.</p>
+                        </div>
+                    </div>
+                    <input id="ddPass" name="dd_pass" type="password" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="ddOptinType" class="form-label">Opt-in Type</label>
+                    <div class="help-tooltip">
+                        <a href="https://support.dotdigital.com/hc/en-gb/articles/212212098-Contact-opt-in-types" target="_blank"><i class="fa-regular fa-message-question tooltip_icon"></i></a>
+                        <div class="tooltip-text">
+                            <p>Choose Single to not require new subscribers to confirm their email address, <br>
+                                Double if your subscribers are verified as correct emails in another system, <br>
+                                or Verified Double for Dotdigital to send a email confirmation before they are subscribed (Recommended Setting).<br>
+                                <br>Click Help Icon, for more information.</p>
+                        </div>
+                    </div>
+                    <select id="ddOptinType" class="form-select" aria-label="Select Dotdigital Opt-in Type">
+                        <option selected>Select Opt-in Type</option>
+                        <option value="Single">Single</option>
+                        <option value="Double">Double</option>
+                        <option value="VerifiedDouble">VerifiedDouble</option>
+                    </select>
+                </div>
+                <div class="mb-3 form-check">
+                    <input id="ddSubscription" type="checkbox" value="true" class="form-check-input">
+                    <label for="ddSubscription" class="form-check-label">Sync Commerce7 Email Marketing Subscription Status</label>
+                    <div class="help-tooltip">
+                        <a href="https://documentation.commerce7.com/is-there-a-way-to-have-customer-automatically-subscribe" target="_blank"><i class="fa-regular fa-message-question tooltip_icon"></i></a>
+                        <div class="tooltip-text">
+                            <p>Sync email marketing status of Subscribed or Unsubscribed with Dotdigital.<br>
+                            <br>Click Help Icon, for more information.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input id="ddAddressBook" type="checkbox" value="true" class="form-check-input">
+                    <label for="ddAddressBook" class="form-check-label">Sync Club Memberships to Address Books</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Sync Commerce7 clubs to Dotdigital Address Books so that you can target individual club members.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input id="ddSyncOrders" type="checkbox" value="true" class="form-check-input">
+                    <label for="ddSyncOrders" class="form-check-label">Sync Orders</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Sync Commerce7 orders to Dotdigital for Contact reporting, Product Recommendations, Automation Programs, and Ecommerce reporting.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input id="ddSyncProducts" type="checkbox" value="true" class="form-check-input">
+                    <label for="ddSyncProducts" class="form-check-label">Sync Products</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Sync Commerce7 products to Dotdigital for Product Recommendations and embedding Products into email campaigns.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="height: 50px">
+                        <div class="col-sm">
+                            <h3 style="display: inline-flex">Web Behavior Tracking</h3>
+                            <div class="help-tooltip">
+                                <i class="fa-regular fa-message-question tooltip_icon"></i>
+                                <div class="tooltip-text">
+                                    <p>Setup Web behavior tracking in dotdigital admin interface<br>
+                                        Click the three dots in lower left → Access (Menu) → Web Behavior Profiles (Tab) → New Profile (Button). <br>
+                                        Enter your front end website domain(s) for tracking</p>
+                                    <ul>
+                                        <li>Status: <strong>Enabled</strong></li>
+                                        <li>Track Abandoned Carts: <strong>Enabled</strong></li>
+                                        <li>Enable guest carts: <strong>Disabled</strong></li>
+                                        <li>Record Unique ID starting with “<strong>DM-</strong>”</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            Add the below JS code to your website to track customer behavior.
+                            <div class="font-weight-bold border p-2 mb-3">
+                                &lt;script src="//d273z4tpgt77hu.cloudfront.net/gsati-dotdigital.js"&gt;&lt;/script&gt;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="ddWbId" class="form-label">Unique ID</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Enter the Unique ID setup under the Web behavior profiles in Dotdigital. <br>
+                                Should be <strong>DM-XXXXXXXXX-XX.</strong></p>
+                        </div>
+                    </div>
+                    <input id="ddWbId" name="dd_wb_id" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="ddWbProgramId" class="form-label">Abandoned Cart Automation Program ID</label>
+                    <div class="help-tooltip">
+                        <a href="https://support.dotdigital.com/hc/en-gb/articles/6297022547730-Create-an-abandoned-cart-program" target="_blank"><i class="fa-regular fa-message-question tooltip_icon"></i></a>
+                        <div class="tooltip-text">
+                            <p>Create a new Automation Program in Dotdigital with the Abandoned Cart template.<br>
+                                Enter the ID number of the automation program here.</p>
+                        </div>
+                    </div>
+                    <input id="ddWbProgramId" name="dd_wb_program_id" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="ddWbCartDelay" class="form-label">Abandoned Cart Program Delay</label>
+                    <div class="help-tooltip">
+                        <i class="fa-regular fa-message-question tooltip_icon"></i>
+                        <div class="tooltip-text">
+                            <p>Enter the delay in minutes before a cart is considered abandoned.<br>
+                                After this time the contact will enter the Abandoned cart program in Dotdigital and begin the automation of sending email. <br>
+                                If the customer visits the site within the delay the timer will reset.
+                                <br>Recommended minimum of 1 hour.</p>
+                        </div>
+                    </div>
+                    <input id="ddWbCartDelay" name="dd_wb_cart_delay" class="form-control">
+                </div>
+                <button class="btn btn-primary" onclick="submitForm(); return false;">Submit</button>
+            </section>
+        </div>
+    </div>
+</div>
+<?php include(VIEW_PATH . '/partials/js-files.phtml'); ?>
+<script>
+    loadSettings()
+
+    /**
+     * Load Settings
+     */
+    function loadSettings() {
+        console.log('loadSettings')
+        axios.post(getSettingsURL, {tenantId, token}).then(function (response) {
+            document.getElementById('ddRegion').value = response.data['dotdigital_region']
+            document.getElementById('ddUser').value = response.data['dotdigital_username']
+            document.getElementById('ddPass').value = 'passwordNotUpdated'
+            document.getElementById('ddOptinType').value = response.data['dotdigital_optin_type']
+            document.getElementById('ddSubscription').checked = response.data['sync_customer_email_subscription']
+            document.getElementById('ddAddressBook').checked = response.data['sync_club_membership_to_dotdigital_address_book']
+            document.getElementById('ddSyncOrders').checked = response.data['sync_orders']
+            document.getElementById('ddSyncProducts').checked = response.data['sync_products']
+            document.getElementById('ddWbId').value = response.data['dd_wb_id']
+            document.getElementById('ddWbProgramId').value = response.data['dd_wb_program_id']
+            document.getElementById('ddWbCartDelay').value = response.data['dd_wb_cart_delay']
+
+            document.getElementById('loadingAlert').style.display = 'none'
+            document.getElementById('pageContent').style.display = null
+        }).catch(function (error) {
+            // console.log(error)
+            window.location.replace('401.html')
+        })
+
+        axios.post('https://lzu24fnncb.execute-api.us-west-2.amazonaws.com', {tenantId, token}).then(function (response) {
+            console.log('Queue Status', response.data)
+            console.log(response)
+        }).catch(function (error) {
+            console.log(error)
+            // window.location.replace('401.html')
+        })
+    }
+
+    /**
+     * Save Settings
+     */
+    function submitForm() {
+        let data = {
+            tenantId: tenantId,
+            token: token,
+            'dotdigital-region': document.getElementById('ddRegion').value,
+            'dotdigital-username': document.getElementById('ddUser').value,
+            'dotdigital-password': document.getElementById('ddPass').value,
+            'dotdigital-opt-in-type': document.getElementById('ddOptinType').value,
+            'sync-club-membership-to-dotdigital-address-book': document.getElementById('ddAddressBook').checked,
+            'sync-customer-email-subscription': document.getElementById('ddSubscription').checked,
+            'sync-orders': document.getElementById('ddSyncOrders').checked,
+            'sync-products': document.getElementById('ddSyncProducts').checked,
+            'dd_wb_id': document.getElementById('ddWbId').value,
+            'dd_wb_program_id': document.getElementById('ddWbProgramId').value,
+            'dd_wb_cart_delay': document.getElementById('ddWbCartDelay').value
+        }
+
+        axios.post(putSettingsURL, data).then(function (response) {
+            document.getElementById('savedAlert').classList.remove('d-none')
+            const invalidDotdigitalCreds = document.getElementById('invalidDotdigitalCreds')
+            invalidDotdigitalCreds.style.display = 'none'
+        }).catch(function (error) {
+            const invalidDotdigitalCreds = document.getElementById('invalidDotdigitalCreds')
+            invalidDotdigitalCreds.style.display = 'block'
+        })
+    }
+
+</script>
+<?php include(VIEW_PATH . '/partials/footer.phtml'); ?>

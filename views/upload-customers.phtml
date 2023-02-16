@@ -1,0 +1,349 @@
+<?php include(VIEW_PATH . '/partials/header.phtml'); ?>
+<?php include(VIEW_PATH . '/partials/side-nav.phtml'); ?>
+<div class="container-fluid py-2">
+    <?php include(VIEW_PATH . '/partials/alert.phtml'); ?>
+    <div class="px-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid">
+            <h2 class="fw-bold">Upload <b>Customers</b></h2>
+            <p>Upload existing <b>Customers</b> to Dotdigital contacts.</p>
+            <p>Note: Uploading is a background process and might take several minutes to complete.</p>
+            <button id="uploadButton" class="btn btn-primary" onclick="startUpload(); return false;">
+                <i class="fa-duotone fa-spinner fa-spin"></i> Checking Queue...
+            </button>
+            <div id="statusBox" class="card" style="display: none">
+                <div class="card-body">
+                    <h5 id="step1" class="text-black-50"><i class="fa-regular fa-square"></i> Step 1: Pulling Customers From Commerce7 <span id="c7ProgressText"></span></h5>
+                    <h5 id="step2" class="text-black-50"><i class="fa-regular fa-square"></i> Step 2: Mapping Customers</h5>
+                    <h5 id="step3" class="text-black-50"><i class="fa-regular fa-square"></i> Step 3: Syncing with Dotdigital <span id="ddProgressText"></span></h5>
+                </div>
+            </div>
+            <div id="uploadOderHistory" class="table-responsive mt-5" style="display: none">
+                <table id="uploadOderHistoryTable" class="table table table-striped">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col" style="width: 1px"></th>
+                        <th scope="col">#</th>
+                        <th scope="col">Date/Time</th>
+                        <th scope="col">Total Customers</th>
+                        <th scope="col">Total Groups</th>
+                        <!--                        <th scope="col">Blocked</th>-->
+                        <!--                        <th scope="col">Domain Suppressed</th>-->
+                        <!--                        <th scope="col">Duplicate Emails</th>-->
+                        <!--                        <th scope="col">Globally Suppressed</th>-->
+                        <!--                        <th scope="col">Hard Bounced</th>-->
+                        <!--                        <th scope="col">Invalid Entries</th>-->
+                        <!--                        <th scope="col">ISP Complaints</th>-->
+                        <!--                        <th scope="col">Mail Blocked</th>-->
+                        <th scope="col">New Contacts</th>
+                        <!--                        <th scope="col">Pending Double Optin</th>-->
+                        <!--                        <th scope="col">Soft Bounced</th>-->
+                        <!--                        <th scope="col">Suppressed Contacts</th>-->
+                        <!--                        <th scope="col">Unsubscribed</th>-->
+                        <!--                        <th scope="col">Duplicate Emails</th>-->
+                        <th scope="col">Updated Contacts</th>
+                        <th scope="col">Failures</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<?php include(VIEW_PATH . '/partials/js-files.phtml'); ?>
+<script>
+    let actionBtn = document.getElementById('uploadButton')
+    let statusBox = document.getElementById('statusBox')
+    let c7ProgressText = document.getElementById('c7ProgressText')
+    let ddProgressText = document.getElementById('ddProgressText')
+    let step1 = document.getElementById('step1')
+    let step2 = document.getElementById('step2')
+    let step3 = document.getElementById('step3')
+    let uploadOderHistory = document.getElementById('uploadOderHistory')
+    let uploadOderHistoryTable = document.getElementById('uploadOderHistoryTable')
+    let updateInterval = null
+    let newRequestInterval = null
+    let getCustomerQueueStatusAjaxFlag = false
+    console.log('Upload Customers Page')
+    if (sessionStorage.hasOwnProperty('settings')) {
+        settings = JSON.parse(sessionStorage.getItem('settings'))
+    }
+
+    if (settings) {
+        console.log('Settings found', settings)
+        updatePageWithSettings()
+    } else {
+        console.log('Settings not found, Get Settings')
+        let interval = setInterval(function () {
+            if (!settings) {
+                return
+            }
+            clearInterval(interval)
+            console.log('Settings found', settings)
+            updatePageWithSettings()
+        }, 500);
+    }
+
+    function updatePageWithSettings() {
+        console.log('Update Page With Settings')
+        if (!settings.c7_dd_contact_queues) {
+            console.log('No Queue')
+            clearInterval(updateInterval)
+            actionBtn.innerText = 'Start uploading to Dotdigital'
+            actionBtn.disabled = false
+            return;
+        }
+
+        buildHistoryTable()
+
+        let lastQueuedItem = settings.c7_dd_contact_queues[settings.c7_dd_contact_queues.length - 1]
+        console.log('Last Queued Item', lastQueuedItem)
+        console.log('Last Queued Item Status: ', lastQueuedItem.status)
+        if (lastQueuedItem.status === 'processing') {
+            updateStatsBlock(lastQueuedItem);
+            getCustomerQueueStatus()
+        } else {
+            if (updateInterval) {
+                clearInterval(updateInterval)
+            }
+            console.log('Hide statusBox')
+            statusBox.style.display = "none"
+            actionBtn.innerText = 'Start uploading to Dotdigital'
+            actionBtn.disabled = false
+            actionBtn.hidden = false
+        }
+    }
+
+    function updateStatsBlock(lastQueuedItem) {
+        if (lastQueuedItem.status === 'done') {
+            return;
+        }
+        actionBtn.hidden = true
+        if (lastQueuedItem.c7Total > 0) {
+            c7ProgressText.innerText = ' :: ( ' + lastQueuedItem.c7Pulled.toLocaleString('en-US') + ' of ' + lastQueuedItem.c7Total.toLocaleString('en-US') + ' )'
+        }
+        console.log('Show statusBox')
+        statusBox.style.display = "block"
+        if (lastQueuedItem.step === 1) {
+            step1.className = 'text-primary'
+            step1.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        } else if (lastQueuedItem.step === 2) {
+            step1.className = 'text-success'
+            step1.firstChild.className = 'fa-regular fa-square-check'
+            step2.className = 'text-primary'
+            step2.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        } else if (lastQueuedItem.step === 3) {
+            if (lastQueuedItem.dd_statuses && lastQueuedItem.dd_statuses.length > 0) {
+                console.log('DD is syncing')
+                ddProgressText.innerText = ' :: Waiting for ' + lastQueuedItem.dd_statuses.length + ' Contact Groups to finish syncing'
+            } else if (lastQueuedItem.ddTotal > 0) {
+                console.log('Pushing to DD')
+                ddProgressText.innerText = ' :: Pushing ( ' + lastQueuedItem.ddPushed.toLocaleString('en-US') + ' of ' + lastQueuedItem.ddTotal.toLocaleString('en-US') + ' )'
+            } else {
+                console.log('DD Unknown Status')
+            }
+            step1.className = 'text-success'
+            step1.firstChild.className = 'fa-regular fa-square-check'
+            step2.className = 'text-success'
+            step2.firstChild.className = 'fa-regular fa-square-check'
+            step3.className = 'text-primary'
+            step3.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        }
+    }
+
+    function buildHistoryTable() {
+        if (!settings.c7_dd_contact_queues) {
+            return;
+        }
+        console.log('Build History Table')
+        for (let i = uploadOderHistoryTable.rows.length - 1; i > 0; i--) {
+            uploadOderHistoryTable.deleteRow(i);
+        }
+
+        for (let i = 0; i < settings.c7_dd_contact_queues.length; i++) {
+            let queueItem = settings.c7_dd_contact_queues[i]
+            if (queueItem.status !== 'done') {
+                console.log('Queue Item Not Done, skip', queueItem)
+                continue;
+            }
+
+            let row = uploadOderHistoryTable.insertRow()
+            let cell1 = row.insertCell(0)
+            let cell2 = row.insertCell(1)
+            let cell3 = row.insertCell(2)
+            let cell4 = row.insertCell(3)
+            let cell5 = row.insertCell(4)
+            let cell6 = row.insertCell(5)
+            let cell7 = row.insertCell(6)
+            let cell8 = row.insertCell(7)
+            let dtg = new Date(queueItem.dtg)
+            let dtgFormatted = dtg.toLocaleString('en-US')
+
+            cell1.innerHTML = '<button class="btn btn-sm btn-outline-dark"> <i class="fa-sharp fa-solid fa-chevron-right"></i></button>'
+            cell1.style.cursor = "pointer";
+            cell1.onclick = function () {
+                let nextRow = this.parentElement.nextElementSibling
+                if (nextRow.style.display === 'none') {
+                    nextRow.style.display = 'table-row'
+                    this.innerHTML = '<button class="btn btn-sm btn-outline-dark"><i class="fa-sharp fa-solid fa-chevron-down"></i></button>'
+                } else {
+                    nextRow.style.display = 'none'
+                    this.innerHTML = '<button class="btn btn-sm btn-outline-dark"><i class="fa-sharp fa-solid fa-chevron-right"></i></button>'
+                }
+            }
+            cell2.innerHTML = i + 1
+            cell3.innerHTML = dtgFormatted
+            cell4.innerHTML = queueItem.c7Total
+            cell5.innerHTML = queueItem.ddTotal
+            cell6.innerHTML = queueItem.summary.newContacts
+            cell7.innerHTML = queueItem.summary.updatedContacts
+            cell8.innerHTML = queueItem.summary.failures
+
+            let rowDetail = uploadOderHistoryTable.insertRow()
+            rowDetail.style.display = 'none'
+            let cell1Detail = rowDetail.insertCell(0)
+            let cell2Detail = rowDetail.insertCell(1)
+            cell2Detail.colSpan = 8
+            cell2Detail.className = 'active'
+
+
+            // create new table
+            let detailTable = document.createElement('table')
+            detailTable.className = 'uploadDetailTable'
+
+            let detailData = [
+                {
+                    label: 'Blocked',
+                    value: queueItem.summary.blocked
+                },
+                {
+                    label: 'Domain Suppressed',
+                    value: queueItem.summary.domainSuppressed
+                },
+                {
+                    label: 'Duplicate Emails',
+                    value: queueItem.summary.duplicateEmails
+                },
+                {
+                    label: 'Globally Suppressed',
+                    value: queueItem.summary.globallySuppressed
+                },
+                {
+                    label: 'Hard Bounced',
+                    value: queueItem.summary.hardBounced
+                },
+                {
+                    label: 'Invalid Entries',
+                    value: queueItem.summary.invalidEntries
+                },
+                {
+                    label: 'ISP Complaints',
+                    value: queueItem.summary.ispComplaints
+                },
+                {
+                    label: 'Mail Blocked',
+                    value: queueItem.summary.mailBlocked
+                },
+                {
+                    label: 'Pending Double Optin',
+                    value: queueItem.summary.pendingDoubleOptin
+                },
+                {
+                    label: 'Soft Bounced',
+                    value: queueItem.summary.softBounced
+                },
+                {
+                    label: 'Suppressed Contacts',
+                    value: queueItem.summary.suppressedContacts
+                },
+                {
+                    label: 'Unsubscribed',
+                    value: queueItem.summary.unsubscribed
+                }
+            ];
+            let detailRow = null;
+            let detailCell1 = null;
+            let detailCell2 = null;
+            for (let i = 0; i < detailData.length; i++) {
+                if (i % 4 === 0) {
+                    console.log('new row', i)
+                    detailRow = document.createElement('tr');
+                }
+                detailCell1 = document.createElement('th');
+                detailCell1.innerHTML = detailData[i].label + ': '
+                detailRow.appendChild(detailCell1);
+
+                detailCell2 = document.createElement('td');
+                detailCell2.innerHTML = detailData[i].value
+                detailRow.appendChild(detailCell2);
+
+                detailTable.appendChild(detailRow);
+            }
+            cell2Detail.appendChild(detailTable)
+        }
+        uploadOderHistory.style.display = 'block'
+    }
+
+
+    function startUpload() {
+        console.log('Start Upload')
+        let actionBtn = document.getElementById('uploadButton')
+        actionBtn.disabled = true
+        actionBtn.innerText = 'Request Queued'
+        let currentQueueLength = 0
+
+        if (settings.c7_dd_contact_queues) {
+            currentQueueLength = settings.c7_dd_contact_queues.length
+        }
+        console.log('Current Queue Length', currentQueueLength)
+
+        axios.post(postContactLoadURL, {tenantId, token, queue: 'c7_dd_contact_queues'}).then(function (response) {
+            console.log('postCustomerLoadURL response', response)
+            clearInterval(newRequestInterval)
+            newRequestInterval = setInterval(function () {
+                console.log('Get Settings')
+                axios.post(getSettingsURL, {tenantId, token}).then(function (response) {
+                    console.log('Get Settings Response', response)
+                    settings = response.data
+                    sessionStorage.setItem('settings', JSON.stringify(settings))
+                    if (settings.c7_dd_contact_queues && settings.c7_dd_contact_queues.length > currentQueueLength) {
+                        console.log('New Request Found')
+                        clearInterval(newRequestInterval)
+                        updatePageWithSettings()
+                    } else {
+                        console.log('No New Request Found, keep trying...')
+                    }
+                }).catch(function () {
+                    // console.log(error)
+                    window.location.replace('401.html')
+                })
+            }, 1000);
+
+        }).catch(function (error) {
+            console.log('error', error)
+            window.location.replace('401.html')
+        })
+    }
+
+    function getCustomerQueueStatus() {
+        console.log('getQueueStatusURL')
+        if (getCustomerQueueStatusAjaxFlag) {
+            return;
+        }
+
+        getCustomerQueueStatusAjaxFlag = true
+        clearInterval(updateInterval)
+        updateInterval = setInterval(function () {
+            axios.post(getQueueStatusURL, {tenantId, token, queue: 'c7_dd_contact_queues'}).then(function (response) {
+                console.log('getCustomerQueueStatusURL response', response)
+                getCustomerQueueStatusAjaxFlag = false
+                settings = response.data
+                sessionStorage.setItem('settings', JSON.stringify(settings))
+                updatePageWithSettings()
+            }).catch(function (error) {
+                console.log(error)
+                // window.location.replace('401.html')
+            })
+        }, 5000);
+    }
+</script>
+<?php include(VIEW_PATH . '/partials/footer.phtml'); ?>

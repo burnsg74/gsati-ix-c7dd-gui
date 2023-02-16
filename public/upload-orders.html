@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content="GSATi Dotdigital Integration"/>
+  <meta name="author" content="GSATi"/>
+  <title>GSATi Dotdigital Integration</title>
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-rqn26AG5Pj86AF4SO72RK5fyefcQ/x32DNQfChxWvbXIyXFePlEktwD18fEz+kQU"
+        crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <script src="https://kit.fontawesome.com/cd768d2af5.js" crossorigin="anonymous"></script>
+    <style>
+      .list-group-item-light.list-group-item-action.active {
+          color: black;
+          background-color: rgb(216, 236, 248);
+      }
+  </style>
+</head>
+<body>
+<div class="d-flex" id="wrapper"><!-- Side Nav -->
+<div class="border-end bg-white" id="sidebar-wrapper">
+  <div class="list-group list-group-flush">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"  href="index.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+        <path
+          d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+      </svg>
+      Dashboard</a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="field-mapping.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
+      </svg>
+      Field Mapping</a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-customers.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+      </svg>
+      Upload <b>Customers</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-products.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+        <path
+          d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+      </svg>
+      Upload <b>Products</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-orders.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+        <path
+          d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+      </svg>
+      Upload <b>Orders</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="settings.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+        <path
+          d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+      </svg>
+      Settings</a>
+  </div>
+</div><div class="container-fluid py-2">
+    <div id="invalidDotdigitalCreds" class="alert alert-danger" role="alert" style="display: none">
+    <i class="fad fa-exclamation-triangle"></i>
+    Warning: Dotdigital credentials are not valid. Please update <a href="/settings.html">Settings</a>
+</div>    <div class="px-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid">
+            <h2 class="fw-bold">Upload <b>Orders</b></h2>
+            <p>Upload existing <b>Orders</b> to Dotdigital contacts.</p>
+            <p>Note: Uploading is a background process and might take several minutes to complete.</p>
+            <button id="uploadButton" class="btn btn-primary" onclick="startUpload(); return false;" disabled>
+                <i class="fa-duotone fa-spinner fa-spin"></i> Checking Queue...
+            </button>
+            <div id="statusBox" class="card" style="display: none">
+                <div class="card-body">
+                    <h5 id="step1" class="text-black-50"><i class="fa-regular fa-square"></i> Step 1: Pulling Customers From Commerce7 <span id="c7ProgressText"></span></h5>
+                    <h5 id="step2" class="text-black-50"><i class="fa-regular fa-square"></i> Step 2: Mapping Customers</h5>
+                    <h5 id="step3" class="text-black-50"><i class="fa-regular fa-square"></i> Step 3: Syncing with Dotdigital</h5>
+                </div>
+            </div>
+            <div id="uploadOderHistory" class="table-responsive mt-5" style="display: none">
+                <table id="uploadOderHistoryTable" class="table table table-striped">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date/Time</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Imported</th>
+                        <th scope="col">Rejected</th>
+                        <th scope="col">Errors</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="/js/app.js"></script><script>
+    let actionBtn = document.getElementById('uploadButton')
+    let statusBox = document.getElementById('statusBox')
+    let c7ProgressText = document.getElementById('c7ProgressText')
+    let step1 = document.getElementById('step1')
+    let step2 = document.getElementById('step2')
+    let step3 = document.getElementById('step3')
+    let uploadOderHistory = document.getElementById('uploadOderHistory')
+    let uploadOderHistoryTable = document.getElementById('uploadOderHistoryTable')
+    let updateInterval = null
+    let newRequestInterval = null
+
+    console.log('Upload Orders Page')
+    if (sessionStorage.hasOwnProperty('settings')) {
+        settings = JSON.parse(sessionStorage.getItem('settings'))
+    }
+
+    if (settings) {
+        console.log('Settings found')
+        updatePageWithSettings()
+    } else {
+        console.log('Settings not found, Get Settings')
+        let interval = setInterval(function () {
+            if (!settings) {
+                return
+            }
+            clearInterval(interval)
+            console.log('Settings found', settings)
+            updatePageWithSettings()
+        }, 500);
+    }
+
+    function updatePageWithSettings() {
+        console.log('Update Page With Settings')
+        if (!settings.c7_dd_order_queues) {
+            console.log('No Queue')
+            clearInterval(updateInterval)
+            actionBtn.innerText = 'Start uploading to Dotdigital'
+            actionBtn.disabled = false
+            return;
+        }
+
+        buildHistoryTable()
+
+        let lastQueuedItem = settings.c7_dd_order_queues[settings.c7_dd_order_queues.length - 1]
+        console.log('Last Queued Item', lastQueuedItem)
+        console.log('Last Queued Item Status: ',lastQueuedItem.status)
+        if (lastQueuedItem.status === 'processing') {
+            updateStatsBlock(lastQueuedItem);
+            getOrderQueueStatus()
+        } else {
+            clearInterval(updateInterval)
+            console.log('Hide statusBox')
+            statusBox.style.display = "none"
+            actionBtn.innerText = 'Start uploading to Dotdigital'
+            actionBtn.disabled = false
+            actionBtn.hidden = false
+        }
+    }
+
+    function updateStatsBlock(lastQueuedItem) {
+        actionBtn.hidden = true
+        if (lastQueuedItem.c7Total > 0) {
+            c7ProgressText.innerText = ' :: ( '+lastQueuedItem.c7Pulled.toLocaleString('en-US') + ' of ' + lastQueuedItem.c7Total.toLocaleString('en-US') + ' )'
+        }
+        console.log('Show statusBox')
+        statusBox.style.display = "block"
+        if (lastQueuedItem.step === 1) {
+            step1.className = 'text-primary'
+            step1.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        } else if (lastQueuedItem.step === 2) {
+            step1.className = 'text-success'
+            step1.firstChild.className = 'fa-regular fa-square-check'
+            step2.className = 'text-primary'
+            step2.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        } else if (lastQueuedItem.step === 3) {
+            step1.className = 'text-success'
+            step1.firstChild.className = 'fa-regular fa-square-check'
+            step2.className = 'text-success'
+            step2.firstChild.className = 'fa-regular fa-square-check'
+            step3.className = 'text-primary'
+            step3.firstChild.className = 'fa-duotone fa-spinner fa-spin'
+        }
+    }
+
+    function buildHistoryTable() {
+        if (!settings.c7_dd_order_queues) {
+            return;
+        }
+        console.log('Build History Table')
+        for (let i = uploadOderHistoryTable.rows.length - 1; i > 0; i--) {
+            uploadOderHistoryTable.deleteRow(i);
+        }
+
+        for (let i = 0; i < settings.c7_dd_order_queues.length; i++) {
+            let queueItem = settings.c7_dd_order_queues[i]
+            if (queueItem.status !== 'done') {
+                console.log('Queue Item Not Done, skip', queueItem)
+                continue;
+            }
+            let total = 0;
+            let imported = 0;
+            let rejected = 0;
+            let errors = [];
+            for (let ii = 0; ii < queueItem.dd_statuses.length; ii++) {
+                let ddStatus = queueItem.dd_statuses[ii]
+                total += ddStatus.totalItems
+                imported += ddStatus.totalImported
+                rejected += ddStatus.totalRejected
+                errors = [...errors, ...ddStatus.faults]
+            }
+
+            let row = uploadOderHistoryTable.insertRow()
+            let cell1 = row.insertCell(0)
+            let cell2 = row.insertCell(1)
+            let cell3 = row.insertCell(2)
+            let cell4 = row.insertCell(3)
+            let cell5 = row.insertCell(4)
+            let cell6 = row.insertCell(5)
+            let dtg = new Date(queueItem.dtg)
+            let dtgFormatted = dtg.toLocaleString('en-US')
+
+            cell1.innerHTML = i + 1
+            cell2.innerHTML = dtgFormatted
+            cell3.innerHTML = total
+            cell4.innerHTML = imported
+            cell5.innerHTML = rejected
+            cell6.innerHTML = ''
+            for (let ii = 0; ii < errors.length; ii++) {
+                cell6.innerHTML += errors[ii].reason + '<br>'
+            }
+        }
+        console.log('Show History')
+        uploadOderHistory.style.display = 'block'
+    }
+
+    function startUpload() {
+        console.log('Start Upload')
+        let actionBtn = document.getElementById('uploadButton')
+        actionBtn.disabled = true
+        actionBtn.innerText = 'Request Queued'
+        let currentQueueLength = 0
+
+        if (settings.c7_dd_order_queues) {
+            currentQueueLength = settings.c7_dd_order_queues.length
+        }
+        console.log('Current Queue Length', currentQueueLength)
+
+        axios.post(postOrderLoadURL, {tenantId, token, queue:'c7_dd_order_queues'}).then(function (response) {
+            console.log('postOrderLoadURL response', response)
+            clearInterval(newRequestInterval)
+            newRequestInterval = setInterval(function () {
+                console.log('Get Settings')
+                axios.post(getSettingsURL, {tenantId, token}).then(function (response) {
+                    console.log('Get Settings Response', response)
+                    settings = response.data
+                    sessionStorage.setItem('settings', JSON.stringify(settings))
+                    if (settings.c7_dd_order_queues && settings.c7_dd_order_queues.length > currentQueueLength) {
+                        console.log('New Request Found')
+                        clearInterval(newRequestInterval)
+                        updatePageWithSettings()
+                    } else {
+                        console.log('No New Request Found, keep trying...')
+                    }
+                }).catch(function (error) {
+                    // console.log(error)
+                    window.location.replace('401.html')
+                })
+            }, 1000);
+
+        }).catch(function (error) {
+            console.log('error', error)
+            window.location.replace('401.html')
+        })
+    }
+
+    function getOrderQueueStatus() {
+        console.log('getQueueStatusURL')
+        clearInterval(updateInterval)
+        updateInterval = setInterval(function () {
+            axios.post(getQueueStatusURL, {tenantId, token, queue:'c7_dd_order_queues'}).then(function (response) {
+                console.log('getOrderQueueStatusURL response', response)
+                settings = response.data
+                sessionStorage.setItem('settings', JSON.stringify(settings))
+                updatePageWithSettings()
+            }).catch(function (error) {
+                console.log(error)
+                // window.location.replace('401.html')
+            })
+        }, 5000);
+    }
+</script>
+</div>
+</body>
+</html>

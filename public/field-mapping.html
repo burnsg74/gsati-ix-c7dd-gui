@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content="GSATi Dotdigital Integration"/>
+  <meta name="author" content="GSATi"/>
+  <title>GSATi Dotdigital Integration</title>
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-rqn26AG5Pj86AF4SO72RK5fyefcQ/x32DNQfChxWvbXIyXFePlEktwD18fEz+kQU"
+        crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <script src="https://kit.fontawesome.com/cd768d2af5.js" crossorigin="anonymous"></script>
+    <style>
+      .list-group-item-light.list-group-item-action.active {
+          color: black;
+          background-color: rgb(216, 236, 248);
+      }
+  </style>
+</head>
+<body>
+<div class="d-flex" id="wrapper"><!-- Side Nav -->
+<div class="border-end bg-white" id="sidebar-wrapper">
+  <div class="list-group list-group-flush">
+    <a class="list-group-item list-group-item-action list-group-item-light p-3"  href="index.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+        <path
+          d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+      </svg>
+      Dashboard</a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="field-mapping.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
+      </svg>
+      Field Mapping</a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-customers.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+      </svg>
+      Upload <b>Customers</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-products.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+        <path
+          d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+      </svg>
+      Upload <b>Products</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="upload-orders.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+        <path
+          d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+      </svg>
+      Upload <b>Orders</b></a>
+    <a class="list-group-item list-group-item-action list-group-item-light p-3 text-nowrap" href="settings.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+        <path
+          d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+      </svg>
+      Settings</a>
+  </div>
+</div><!-- Page content-->
+<div class="container-fluid py-2">
+  <div id="invalidDotdigitalCreds" class="alert alert-danger" role="alert" style="display: none">
+    <i class="fad fa-exclamation-triangle"></i>
+    Warning: Dotdigital credentials are not valid. Please update <a href="/settings.html">Settings</a>
+</div>  <div id="savedAlert" class="alert alert-success d-none" role="alert">
+    Field Mapping saved successfully.
+  </div>
+  <div class="px-5 mb-4 bg-light rounded-3">
+    <h2 class="fw-bold">Field Mapping</h2>
+    <p class="col-md-8">Match Commerce7 customer fields to Dotdigital contact fields.</p>
+
+    <section id="loadingAlert">
+      <div class="row">
+        <div class="row" style="height: 50px">
+          <div class="col-sm">
+            <h3>Loading... <i class="spinner-border text-primary" role="status"></i></h3>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="pageContent" style="display: none">
+      <div class="row">
+        <div class="row" style="height: 50px">
+          <div class="col-sm">
+            <h3>Commerce7 Customer</h3>
+          </div>
+          <div class="col-sm-1"> &nbsp;</div>
+          <div class="col-sm h-25">
+            <h3>Dotdigital Contact</h3>
+          </div>
+          <div class="col-sm-1"> &nbsp;</div>
+        </div>
+        <section id="mappingRows"></section>
+        <section>
+          <div class="row">
+            <div class="col-sm">
+              <select class="c7Field p-2" name="c7_field[]">
+                <option></option>
+              </select>
+            </div>
+            <div class="col-sm-1 text-center align-middle">
+              <svg height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  d="M504.3 273.6l-112.1 104c-6.992 6.484-17.18 8.218-25.94 4.406c-8.758-3.812-14.42-12.45-14.42-21.1L351.9 288H32C14.33 288 .0002 273.7 .0002 255.1S14.33 224 32 224h319.9l0-72c0-9.547 5.66-18.19 14.42-22c8.754-3.809 18.95-2.075 25.94 4.41l112.1 104C514.6 247.9 514.6 264.1 504.3 273.6z"/>
+              </svg>
+            </div>
+            <div class="col-sm">
+              <select class="ddField p-2" name="dd_field[]">
+                <option></option>
+              </select>
+            </div>
+            <div class="col-sm-1 align-top">
+            </div>
+          </div>
+          <button id="addButton" class="btn btn-success" onclick="addItem(); return false;" style="display:none">
+            Add Mapping
+          </button>
+        </section>
+      </div>
+      <hr class="mt-5">
+      <div class="text-start">
+        <button class="btn btn-primary" onclick="saveMapping(); return false;">Save Mapping</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Field Mapping Row Template : Not visible, used by js only -->
+<div id="mappingRowTemplate" class="row" style="display: none">
+  <div class="commerce7Field col-sm"></div>
+  <div class="col-sm-1 text-center">
+    <svg height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path
+        d="M504.3 273.6l-112.1 104c-6.992 6.484-17.18 8.218-25.94 4.406c-8.758-3.812-14.42-12.45-14.42-21.1L351.9 288H32C14.33 288 .0002 273.7 .0002 255.1S14.33 224 32 224h319.9l0-72c0-9.547 5.66-18.19 14.42-22c8.754-3.809 18.95-2.075 25.94 4.41l112.1 104C514.6 247.9 514.6 264.1 504.3 273.6z"/>
+    </svg>
+  </div>
+  <div class="dotdigitalField col-sm"></div>
+  <div class="col-sm-1 align-middle">
+    <div class="btn-group btn-group-sm" role="group" aria-label="Row Action Buttons">
+      <button onclick="editItem(this);" type="button" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil text-primary pr-3" viewBox="0 0 16 16">
+          <path
+            d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+      </button>
+      <button onclick="removeItem(this);" type="button" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash text-danger" viewBox="0 0 16 16">
+          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+          <path fill-rule="evenodd"
+                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="/js/app.js"></script><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  let editMode = false
+  let c7Select2 = null
+  let ddSelect2 = null
+  let c7Selected = null
+  let ddSelected = null
+  let mapping = []
+  let ddFields = []
+  let c7Fields = [
+    { id: 'id', text: 'id' },
+    { id: 'avatar', text: 'avatar' },
+    { id: 'honorific', text: 'honorific' },
+    { id: 'firstName', text: 'firstName' },
+    { id: 'lastName', text: 'lastName' },
+    { id: 'birthDate', text: 'birthDate' },
+    { id: 'city', text: 'city' },
+    { id: 'stateCode', text: 'stateCode' },
+    { id: 'zipCode', text: 'zipCode' },
+    { id: 'countryCode', text: 'countryCode' },
+    { id: 'emailMarketingStatus', text: 'emailMarketingStatus' },
+    { id: 'lastActivityDate', text: 'lastActivityDate' },
+    { id: 'metaData.ams-customer-since', text: 'metaData.ams-customer-since' },
+    { id: 'metaData.ams-customer-id', text: 'metaData.ams-customer-id' },
+    { id: 'appData', text: 'appData' },
+    { id: 'appSync', text: 'appSync' },
+    { id: 'createdAt', text: 'createdAt' },
+    { id: 'updatedAt', text: 'updatedAt' },
+    { id: 'orderInformation.currentWebCartId', text: 'orderInformation.currentWebCartId' },
+    { id: 'orderInformation.lastOrderId', text: 'orderInformation.lastOrderId' },
+    { id: 'orderInformation.lastOrderDate', text: 'orderInformation.lastOrderDate' },
+    { id: 'orderInformation.orderCount', text: 'orderInformation.orderCount' },
+    { id: 'orderInformation.lifetimeValue', text: 'orderInformation.lifetimeValue' },
+    { id: 'orderInformation.rank', text: 'orderInformation.rank' },
+    { id: 'orderInformation.rankTrend', text: 'orderInformation.rankTrend' },
+    { id: 'orderInformation.grossProfit', text: 'orderInformation.grossProfit' },
+    { id: 'orderInformation.acquisitionChannel', text: 'orderInformation.acquisitionChannel' },
+    { id: 'orderInformation.currentClubTitle', text: 'orderInformation.currentClubTitle' },
+    { id: 'orderInformation.daysInCurrentClub', text: 'orderInformation.daysInCurrentClub' },
+    { id: 'orderInformation.daysInClub', text: 'orderInformation.daysInClub' },
+    { id: 'hasAccount', text: 'hasAccount' },
+    { id: 'loginActivity.lastLoginAt', text: 'loginActivity.lastLoginAt' },
+    { id: 'loginActivity.loginIP', text: 'loginActivity.loginIP' },
+    { id: 'loginActivity.lastLogoutAt', text: 'loginActivity.lastLogoutAt' },
+  ]
+
+  /**
+   * Dom is Ready
+   */
+  $(document).ready(function () {
+    Promise.all([getDdDataFields(), getMappingData()]).then(() => {
+      sortC7Fields()
+      sortDdFields()
+      initC7Select2()
+      initDdSelect2()
+      addC7Select2Listener()
+      addDdSelect2Listener()
+
+      document.getElementById('loadingAlert').style.display = 'none'
+      document.getElementById('pageContent').style.display = null
+    })
+
+  })
+
+  /**
+   * Get Dd Data Fields
+   * Pull in dotdigital data fields via ajax
+   * @returns {Promise<any>}
+   */
+  function getDdDataFields () {
+    return axios.post(getDdDataFieldsURL, { tenantId, token }).then(function (response) {
+      response.data.forEach((item) => {
+        ddFields.push({ id: item.name, text: item.name })
+      })
+
+      initDdSelect2()
+    }).catch(function (error) {
+      console.log('ERROR',error)
+      window.location.replace('error.html')
+    })
+  }
+
+  /**
+   * Get Mapping Data
+   * @returns {Promise<any>}
+   */
+  function getMappingData () {
+    console.log('getMappingData Request: ',getMappingURL);
+    return axios.post(getMappingURL, { tenantId, token }).then((response) => {
+      console.log('getMappingData Response :',response)
+      if(response.data.length === 0) {
+        console.log('No saved mapping')
+        return;
+      }
+
+      console.log('Processing mapping data')
+      mapping = response.data
+      mapping.forEach((item) => {
+        c7Fields.splice(c7Fields.findIndex(o => o.id === item.c7Field), 1)
+        ddFields.splice(ddFields.findIndex(o => o.id === item.ddField), 1)
+      })
+
+      updateMappingRows()
+    }).catch(function (error) {
+      console.log('ERROR2',error)
+      // window.location.replace('401.html')
+    })
+  }
+
+  /**
+   * Sort Commerce7 Fields
+   */
+  function sortC7Fields () {
+    c7Fields.sort((a, b) => {
+      if (a.text > b.text) return 1
+      if (a.text < b.text) return -1
+      return 0
+    })
+  }
+
+  /**
+   * Sort Dotdigital Fields
+   */
+  function sortDdFields () {
+    ddFields.sort((a, b) => {
+      if (a.text > b.text) return 1
+      if (a.text < b.text) return -1
+      return 0
+    })
+  }
+
+  /**
+   * Init Commerce7 Select2
+   */
+  function initC7Select2 () {
+    c7Select2 = $('.c7Field').select2({
+      width: '100%',
+      placeholder: 'Select an Commerce7 Field',
+      data: c7Fields
+    })
+  }
+
+  /**
+   * Init Dotdigital Select2
+   */
+  function initDdSelect2 () {
+    console.log('initDdSelect2')
+    ddSelect2 = $('.ddField').select2({
+      width: '100%',
+      placeholder: 'Select an Dotdigital Field',
+      data: ddFields
+    })
+  }
+
+  /**
+   * Add Commerce7 Select2 Listener
+   */
+  function addC7Select2Listener () {
+    c7Select2.on('select2:select', function (e) {
+      c7Selected = e.params.data.id
+      toggleAddButton()
+    })
+  }
+
+  /**
+   * Add Dotdigital Select2 Listener
+   */
+  function addDdSelect2Listener () {
+    ddSelect2.on('select2:select', function (e) {
+      ddSelected = e.params.data.id
+      toggleAddButton()
+    })
+  }
+
+  /**
+   * Toggle: Add Button
+   */
+  function toggleAddButton () {
+    if (c7Selected && ddSelected) {
+      // $('#addButton').show()
+      addItem()
+    }
+  }
+
+  /**
+   * Update Mapping Rows
+   * Loop over mapping array
+   * Using the mapping row template,
+   * create existing mappings on screen
+   */
+  function updateMappingRows () {
+    console.log('updateMappingRows', mapping)
+    let newSection = document.createElement('section')
+    newSection.setAttribute('id', 'mappingRows')
+
+    mapping.forEach((item) => {
+      if(!item.c7Field) {
+        return;
+      }
+      
+      let newRow = document.querySelector('#mappingRowTemplate').cloneNode(true)
+
+      newRow.removeAttribute('id')
+      newRow.removeAttribute('style')
+      newRow.getElementsByTagName('div')[0].innerText = item.c7Field
+      newRow.getElementsByTagName('div')[2].innerText = item.ddField
+
+      newSection.append(newRow)
+    })
+
+    document.querySelector('#mappingRows').replaceWith(newSection)
+  }
+
+  /**
+   * Add Item
+   */
+  function addItem () {
+    editMode = false
+    mapping.push({ 'c7Field': c7Selected, 'ddField': ddSelected })
+    updateMappingRows()
+
+    c7Fields.splice(c7Fields.findIndex(o => o.id === c7Selected), 1)
+    ddFields.splice(ddFields.findIndex(o => o.id === ddSelected), 1)
+
+    c7Select2.empty()
+    initC7Select2()
+    c7Select2.val(null).trigger('change')
+
+    ddSelect2.empty()
+    initDdSelect2()
+    ddSelect2.val(null).trigger('change')
+
+    c7Selected = null
+    ddSelected = null
+    document.getElementById('addButton').style.display = 'none'
+  }
+
+  /**
+   * Edit Field Mapping Pair
+   * @param e
+   */
+  function editItem (e) {
+    if (editMode) { addItem() }
+    editMode = true
+
+    let row = $(e).closest('.row')
+    c7Selected = row.find('div')[0].innerText
+    ddSelected = row.find('div')[2].innerText
+
+    removeItem(e)
+
+    c7Select2.val(c7Selected).trigger('change')
+    ddSelect2.val(ddSelected).trigger('change')
+    document.getElementById('addButton').style.display = null
+  }
+
+  /**
+   * Remove Item
+   * @param e
+   */
+  function removeItem (e) {
+    let row = $(e).closest('.row')
+    let c7Field = row.find('div')[0].innerText
+    let ddField = row.find('div')[2].innerText
+
+    c7Fields.push({ id: c7Field, text: c7Field })
+    ddFields.push({ id: ddField, text: ddField })
+    sortC7Fields()
+    sortDdFields()
+
+    c7Select2.empty()
+    initC7Select2()
+    c7Select2.val(null).trigger('change')
+
+    ddSelect2.empty()
+    initDdSelect2()
+    ddSelect2.val(null).trigger('change')
+
+    mapping.splice(mapping.findIndex(o => o.c7Field === c7Field), 1)
+    updateMappingRows()
+  }
+
+  /**
+   * Save Mapping
+   */
+  function saveMapping () {
+    console.log('Save Mapping URL: ', putMappingURL)
+    axios.post(putMappingURL, { tenantId, token, mapping }).then((response) => {
+      console.log('Response: ', response)
+      document.getElementById('savedAlert').classList.remove('d-none')
+    }).catch(function (error) {
+      console.log(error)
+      // window.location.replace('error.html')
+    })
+  }
+</script>
+
+</div>
+</body>
+</html>
